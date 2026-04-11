@@ -1,14 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 
-/* ================= GLOBAL ================= */
+/* 🔥 RESET */
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
-  font-family: 'Inter', sans-serif;
-  background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+  font-family: 'Inter', sans-serif !important;
+  background: linear-gradient(135deg, #e8f5e9, #c8e6c9) !important;
 }
 
-.container {
+/* reset margin bawaan bootstrap */
+h1, h2, h3, p, small {
+  margin: 0;
+}
+
+/* ================= GLOBAL ================= */
+
+.container.myContainer {
   min-height: 100vh;
   padding: 30px 20px;
   color: #1b5e20;
@@ -29,19 +39,19 @@ body {
   display: block;
   margin: 0 auto 25px;
   padding: 12px 20px;
-  width: 320px;
+  width: 50px;
   max-width: 90%;
-  border-radius: 30px;
-  border: 2px solid #66bb6a;
+  border-radius: 30px !important;
+  border: 2px solid #66bb6a !important;
   outline: none;
-  background: white;
+  background: white !important;
   color: #1b5e20;
   transition: 0.3s;
 }
 
 .search:focus {
-  border-color: #2e7d32;
-  box-shadow: 0 0 10px rgba(46,125,50,0.2);
+  border-color: #2e7d32 !important;
+  box-shadow: 0 0 10px rgba(46,125,50,0.2) !important;
 }
 
 /* ================= LIST ================= */
@@ -107,25 +117,29 @@ body {
 /* ================= ❤️ FAVORIT ================= */
 
 .favBtn {
-  border: none;
-  background: transparent;
   font-size: 20px;
-  cursor: pointer;
   opacity: 0.5;
   transition: 0.3s;
+}
+
+/* 🔥 override bootstrap button */
+.favBtn.btn {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
 .favBtn.active {
   opacity: 1;
   transform: scale(1.2);
-  color: #e53935;
+  color: #e53935 !important;
 }
 
 .favBtn:hover {
   transform: scale(1.3);
 }
 
-/* ================= 📚 REKOMENDASI ================= */
+/* ================= REKOMENDASI ================= */
 
 .sectionTitle {
   margin: 25px auto 10px;
@@ -177,7 +191,7 @@ body {
   color: #1b5e20;
 }
 
-/* ================= STICKY HEADER ================= */
+/* ================= HEADER ================= */
 
 .stickyHeader {
   position: sticky;
@@ -194,19 +208,24 @@ body {
   padding: 12px 20px;
 }
 
-/* kiri */
 .backBtn {
-  background: none;
-  border: none;
-  color: #2e7d32;
+  color: #2e7d32 !important;
   font-weight: 600;
-  cursor: pointer;
+  border-radius: 20px !important;
+  padding: 6px 14px;
+  transition: 0.3s;
 }
 
-/* kanan */
+.backBtn:hover {
+  background: #e8f5e9 !important;
+}
+
 .arabMini {
+  margin-top: 20px;
   font-family: "Amiri", serif;
-  font-size: 18px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: right;
 }
 
 /* ================= DETAIL HEADER ================= */
@@ -233,41 +252,14 @@ body {
 }
 
 .audioBtn {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 20px;
-  background: linear-gradient(135deg, #2e7d32, #66bb6a);
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+  border-radius: 20px !important;
 }
 
-.audioBtn:hover {
-  transform: scale(1.05);
-}
-
-/* 🔥 STOP BUTTON */
 .stopBtn {
-  padding: 10px 18px;
-  border: none;
-  border-radius: 20px;
-  background: #e53935;
-  color: white;
-  cursor: pointer;
-  font-weight: 600;
-  transition: 0.3s;
+  border-radius: 20px !important;
 }
 
-.stopBtn:hover {
-  transform: scale(1.05);
-  background: #c62828;
-}
-
-.stopBtn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
+/* ================= DESKRIPSI ================= */
 
 .surahDesc {
   margin-top: 15px;
@@ -298,6 +290,13 @@ body {
   position: relative;
 }
 
+.ayatActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
 .ayatNumber {
   position: absolute;
   top: 15px;
@@ -309,34 +308,37 @@ body {
   font-size: 12px;
 }
 
-/* AUDIO AYAT */
 .ayatAudioBtn {
-  position: absolute;
-  left: 15px;
-  top: 20px;
-  background: #66bb6a;
-  border: none;
-  border-radius: 50%;
-  width: 35px;
-  height: 35px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 40px;
+  height: 40px;
+  border-radius: 50% !important;
+
+  background: #2e7d32;
   color: white;
+  border: none;
+  font-size: 16px;
 }
 
-/* TAFSIR */
 .tafsirBtn {
-  margin-left: 45px;
+  margin-left: 10px; /* kasih jarak dari tombol audio */
   margin-top: 2px;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 10px;
-  background: #81c784;
-  color: white;
-  cursor: pointer;
+  background: linear-gradient(135deg, #2e7d32, #66bb6a) !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  padding: 10px 18px;
   font-size: 12px;
+
 }
 
-/* TEXT */
+.tafsirBtn:hover {
+  background: #2e7d32 !important;
+}
+/* ================= TEXT ================= */
 
 .arabText {
   text-align: right;
@@ -370,13 +372,9 @@ body {
   position: fixed;
   bottom: 25px;
   right: 25px;
-  background: #2e7d32;
-  color: white;
-  border: none;
-  border-radius: 50%;
   width: 55px;
   height: 55px;
+  border-radius: 50% !important;
   font-size: 22px;
-  cursor: pointer;
   z-index: 9999;
 }

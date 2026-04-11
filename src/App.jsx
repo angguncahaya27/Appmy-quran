@@ -34,7 +34,6 @@ function App() {
   }, []);
 
   // ================= AUDIO =================
-
   const playAudio = (url) => {
     if (!url) return;
 
@@ -63,7 +62,6 @@ function App() {
     audio.onended = () => setIsPlaying(false);
   };
 
-  // 🔥 STOP AUDIO (NEW)
   const stopAudio = () => {
     if (currentAudio) {
       currentAudio.pause();
@@ -73,7 +71,6 @@ function App() {
   };
 
   // ================= API =================
-
   const handleClick = (nomor) => {
     fetch(`https://equran.id/api/v2/surat/${nomor}`)
       .then((res) => res.json())
@@ -85,19 +82,13 @@ function App() {
 
     fetch(`https://equran.id/api/v2/tafsir/${nomor}`)
       .then((res) => res.json())
-      .then((data) => {
-        setTafsirData(data.data.tafsir);
-      });
+      .then((data) => setTafsirData(data.data.tafsir));
   };
 
   const toggleFavorite = (nomor) => {
-    let updated;
-
-    if (favorites.includes(nomor)) {
-      updated = favorites.filter((f) => f !== nomor);
-    } else {
-      updated = [...favorites, nomor];
-    }
+    let updated = favorites.includes(nomor)
+      ? favorites.filter((f) => f !== nomor)
+      : [...favorites, nomor];
 
     setFavorites(updated);
     localStorage.setItem("favorites", JSON.stringify(updated));
@@ -120,16 +111,15 @@ function App() {
   );
 
   return (
-    <div className="container">
+    <div className="container myContainer">
 
       {/* ================= LIST VIEW ================= */}
       {!selectedSurah && (
         <>
-          <h1 className="title">🌿 Al-Qur'an Digital</h1>
+          <h1 className="title text-center">🌿 Al-Qur'an Digital</h1>
 
           <input
-            className="search"
-            type="text"
+            className="search form-control mx-auto"
             placeholder="Cari surat..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -142,10 +132,7 @@ function App() {
               <div className="list">
                 {favoriteSurah.map((s) => (
                   <div key={s.nomor} className="surahItem">
-                    <div
-                      className="left"
-                      onClick={() => handleClick(s.nomor)}
-                    >
+                    <div className="left" onClick={() => handleClick(s.nomor)}>
                       <div className="number">{s.nomor}</div>
                       <div>
                         <h3>{s.namaLatin}</h3>
@@ -153,8 +140,13 @@ function App() {
                       </div>
                     </div>
 
+                    {/* 🔥 FIX FAVORITE BUTTON */}
                     <button
-                      className="favBtn active"
+                      className={`favBtn btn ${
+                        favorites.includes(s.nomor)
+                          ? "active btn-danger"
+                          : "btn-light"
+                      }`}
                       onClick={() => toggleFavorite(s.nomor)}
                     >
                       ❤️
@@ -203,8 +195,10 @@ function App() {
                 </div>
 
                 <button
-                  className={`favBtn ${
-                    favorites.includes(s.nomor) ? "active" : ""
+                  className={`favBtn btn ${
+                    favorites.includes(s.nomor)
+                      ? "active btn-danger"
+                      : "btn-light"
                   }`}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -219,78 +213,64 @@ function App() {
         </>
       )}
 
-  {/* ================= DETAIL VIEW ================= */}
-{selectedSurah && (
-  <div className="detail">
+      {/* ================= DETAIL VIEW ================= */}
+      {selectedSurah && (
+        <div className="detail">
 
-    {/* STICKY HEADER */}
-    <div className="stickyHeader">
-      <button
-        className="backBtn"
-        onClick={() => setSelectedSurah(null)}
-      >
-        ← Kembali
-      </button>
-
-      <p className="arabMini">{selectedSurah.nama}</p>
-    </div>
-
-    {/* HEADER */}
-          <div className="detailHeader">
-             <h2 className="latinTitle">{selectedSurah.namaLatin}</h2>
-             <h2 className="arabTitle">{selectedSurah.nama}</h2>
-
-            <p className="subInfo">
-           {selectedSurah.arti} • {selectedSurah.jumlahAyat} ayat
-         </p>
-
-  {/* 🔥 AUDIO CONTROL */}
-         <div className="audioControls">
+          <div className="stickyHeader">
             <button
-              className="audioBtn"
-              onClick={() => playAudio(selectedSurah.audioFull["05"])}
-              disabled={!selectedSurah.audioFull["05"]}>
-             {currentAudio?.src === selectedSurah.audioFull["05"] && isPlaying
-               ? "⏸ Pause"
-              : "▶️ Play"}
-           </button>
-
-            <button
-               className="stopBtn"
-               onClick={stopAudio}
-               disabled={!currentAudio}
-               >
-              ⏹ Stop
+              className="backBtn btn btn-outline-success btn-sm"
+              onClick={() => setSelectedSurah(null)}
+            >
+              ← Kembali
             </button>
+
+            <p className="arabMini">{selectedSurah.nama}</p>
           </div>
 
-  {/* 🔥 DESKRIPSI SURAT (PINDAH KE SINI) */}
-                 <p
-                className="surahDesc"
-                dangerouslySetInnerHTML={{
+          <div className="detailHeader text-center">
+            <h2>{selectedSurah.namaLatin}</h2>
+            <h2 className="arabTitle">{selectedSurah.nama}</h2>
+
+            <p>
+              {selectedSurah.arti} • {selectedSurah.jumlahAyat} ayat
+            </p>
+
+            <div className="audioControls">
+              <button
+                className="audioBtn btn btn-success"
+                onClick={() => playAudio(selectedSurah.audioFull["05"])}
+              >
+                ▶️ Play
+              </button>
+
+              <button className="stopBtn btn btn-danger" onClick={stopAudio}>
+                ⏹ Stop
+              </button>
+            </div>
+
+            <p
+              className="surahDesc"
+              dangerouslySetInnerHTML={{
                 __html: selectedSurah.deskripsi,
               }}
             ></p>
           </div>
-  
 
-          {/* AYAT */}
           <div className="ayatList">
             {ayat.map((a) => (
               <div key={a.nomorAyat} className="ayatCard">
                 <div className="ayatNumber">{a.nomorAyat}</div>
 
                 <button
-                  className="ayatAudioBtn"
+                  className="ayatAudioBtn btn btn-success"
                   onClick={() => playAudio(a.audio["05"])}
                 >
-                  {currentAudio?.src === a.audio["05"] && isPlaying
-                    ? "⏸"
-                    : "🔊"}
+                  🔊
                 </button>
 
                 <button
-                  className="tafsirBtn"
+                  className="tafsirBtn btn btn-secondary btn-sm"
                   onClick={() =>
                     setOpenTafsir(
                       openTafsir === a.nomorAyat ? null : a.nomorAyat
@@ -320,7 +300,7 @@ function App() {
 
       {/* SCROLL */}
       {showScroll && (
-        <button className="scrollTopBtn" onClick={scrollToTop}>
+        <button className="scrollTopBtn btn btn-success" onClick={scrollToTop}>
           ↑
         </button>
       )}
