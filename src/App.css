@@ -39,8 +39,10 @@ h1, h2, h3, p, small {
   display: block;
   margin: 0 auto 25px;
   padding: 12px 20px;
-  width: 50px;
-  max-width: 90%;
+
+  width: 100%;        /* full dari max-width */
+  max-width: 500px;   /* atur panjang maksimal */
+
   border-radius: 30px !important;
   border: 2px solid #66bb6a !important;
   outline: none;
@@ -49,10 +51,6 @@ h1, h2, h3, p, small {
   transition: 0.3s;
 }
 
-.search:focus {
-  border-color: #2e7d32 !important;
-  box-shadow: 0 0 10px rgba(46,125,50,0.2) !important;
-}
 
 /* ================= LIST ================= */
 
@@ -309,18 +307,21 @@ h1, h2, h3, p, small {
 }
 
 .ayatAudioBtn {
+  width: 30px;
+  height: 30px;
+  padding: 0 !important;     /* ini penting */
+  border-radius: 50% !important;
+
   display: flex;
   align-items: center;
   justify-content: center;
 
-  width: 40px;
-  height: 40px;
-  border-radius: 50% !important;
-
   background: #2e7d32;
   color: white;
   border: none;
-  font-size: 16px;
+
+  font-size: 14px;
+  line-height: 1;            /* biar ga ketarik tinggi */
 }
 
 .tafsirBtn {
@@ -360,7 +361,7 @@ h1, h2, h3, p, small {
 
 .tafsirBox {
   margin-top: 12px;
-  background: #e3f5e4;
+  background: #ffffff;
   padding: 12px;
   border-radius: 12px;
   font-size: 13px;
