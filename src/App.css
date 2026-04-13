@@ -325,6 +325,11 @@ h1, h2, h3, p, small {
   line-height: 1;            /* biar ga ketarik tinggi */
 }
 
+.ayatAudioBtn:hover {
+  background: #66bb6a !important;  /* warna hover baru */
+  color: white !important;
+}
+
 
 .tafsirBtn {
   margin-left: 10px; /* kasih jarak dari tombol audio */
