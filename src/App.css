@@ -311,6 +311,7 @@ h1, h2, h3, p, small {
   height: 30px;
   padding: 0 !important;     /* ini penting */
   border-radius: 50% !important;
+   margin-right: 8px;
 
   display: flex;
   align-items: center;
@@ -323,6 +324,7 @@ h1, h2, h3, p, small {
   font-size: 14px;
   line-height: 1;            /* biar ga ketarik tinggi */
 }
+
 
 .tafsirBtn {
   margin-left: 10px; /* kasih jarak dari tombol audio */
