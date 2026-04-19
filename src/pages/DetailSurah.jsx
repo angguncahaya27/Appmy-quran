@@ -17,6 +17,7 @@ function DetailSurah({
   const [openTafsir, setOpenTafsir] = useState(null);
 
   useEffect(() => {
+    // Ambil detail surah
     fetch(`https://equran.id/api/v2/surat/${id}`)
       .then((res) => res.json())
       .then((data) => {
@@ -25,6 +26,7 @@ function DetailSurah({
         window.scrollTo({ top: 0, behavior: "smooth" });
       });
 
+    // Ambil tafsir
     fetch(`https://equran.id/api/v2/tafsir/${id}`)
       .then((res) => res.json())
       .then((data) => setTafsirData(data.data.tafsir));
@@ -34,6 +36,7 @@ function DetailSurah({
 
   return (
     <div className="detail">
+      {/* ================= HEADER STICKY ================= */}
       <div className="stickyHeader">
         <button
           className="backBtn btn btn-outline-success btn-sm"
@@ -45,6 +48,7 @@ function DetailSurah({
         <p className="arabMini">{selectedSurah.nama}</p>
       </div>
 
+      {/* ================= DETAIL HEADER ================= */}
       <div className="detailHeader text-center">
         <h2>{selectedSurah.namaLatin}</h2>
         <h2 className="arabTitle">{selectedSurah.nama}</h2>
@@ -53,25 +57,38 @@ function DetailSurah({
           {selectedSurah.arti} • {selectedSurah.jumlahAyat} ayat
         </p>
 
+        {/* ================= AUDIO SURAH ================= */}
         <div className="audioControls">
           <button
             className="audioBtn btn btn-success"
-            onClick={() => playAudio(selectedSurah.audioFull["05"])}
+            onClick={() =>
+              playAudio(selectedSurah.audioFull["05"])
+            }
           >
-            {currentAudio &&
-            currentAudio.src === selectedSurah.audioFull["05"] &&
-            isPlaying ? (
-              <i className="bi bi-pause-fill"></i>
+            {isPlaying &&
+            currentAudio?.src?.includes(
+              selectedSurah.audioFull["05"]
+            ) ? (
+              <>
+                <i className="bi bi-pause-fill"></i> Pause
+              </>
             ) : (
-              <i className="bi bi-play-fill"></i>
+              <>
+                <i className="bi bi-play-fill"></i> Play
+              </>
             )}
           </button>
 
-          <button className="stopBtn btn btn-danger" onClick={stopAudio}>
-            <i className="bi bi-stop-fill"></i>
+          <button
+            className="stopBtn btn btn-danger"
+            onClick={stopAudio}
+            disabled={!currentAudio}
+          >
+            <i className="bi bi-stop-fill"></i> Stop
           </button>
         </div>
 
+        {/* ================= DESKRIPSI ================= */}
         <p
           className="surahDesc"
           dangerouslySetInnerHTML={{
@@ -80,18 +97,19 @@ function DetailSurah({
         ></p>
       </div>
 
+      {/* ================= LIST AYAT ================= */}
       <div className="ayatList">
         {ayat.map((a) => (
           <div key={a.nomorAyat} className="ayatCard">
             <div className="ayatNumber">{a.nomorAyat}</div>
 
+            {/* AUDIO AYAT */}
             <button
               className="ayatAudioBtn btn btn-success"
               onClick={() => playAudio(a.audio["05"])}
             >
-              {currentAudio &&
-              currentAudio.src === a.audio["05"] &&
-              isPlaying ? (
+              {isPlaying &&
+              currentAudio?.src?.includes(a.audio["05"]) ? (
                 <i className="bi bi-pause-fill"></i>
               ) : (
                 <i className="bi bi-play-fill"></i>
@@ -108,6 +126,7 @@ function DetailSurah({
               <i className="bi bi-stop-fill"></i>
             </button>
 
+            {/* TAFSIR BUTTON */}
             <button
               className="tafsirBtn btn btn-secondary btn-sm"
               onClick={() =>
@@ -119,16 +138,17 @@ function DetailSurah({
               Tafsir
             </button>
 
+            {/* TEKS */}
             <p className="arabText">{a.teksArab}</p>
             <p className="latinText">{a.teksLatin}</p>
             <p className="indoText">{a.teksIndonesia}</p>
 
+            {/* TAFSIR */}
             {openTafsir === a.nomorAyat && (
               <div className="tafsirBox">
-                {
-                  tafsirData.find((t) => t.ayat === a.nomorAyat)?.teks ||
-                  "Tafsir tidak tersedia"
-                }
+                {tafsirData?.find(
+                  (t) => t.ayat === a.nomorAyat
+                )?.teks || "Tafsir tidak tersedia"}
               </div>
             )}
           </div>
