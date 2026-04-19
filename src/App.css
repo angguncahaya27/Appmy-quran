@@ -40,10 +40,8 @@ h1, h2, h3, p, small {
   display: block;
   margin: 0 auto 25px;
   padding: 12px 20px;
-
   width: 100%;        /* full dari max-width */
-  max-width: 500px;   /* atur panjang maksimal */
-
+  max-width: 700px;   /* atur panjang maksimal */
   border-radius: 30px !important;
   border: 2px solid #66bb6a !important;
   outline: none;
@@ -51,7 +49,6 @@ h1, h2, h3, p, small {
   color: #1b5e20;
   transition: 0.3s;
 }
-
 
 /* ================= LIST ================= */
 
@@ -312,16 +309,13 @@ h1, h2, h3, p, small {
   height: 30px;
   padding: 0 !important;     /* ini penting */
   border-radius: 50% !important;
-   margin-right: 8px;
-
+  margin-right: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-
   background: #2e7d32;
   color: white;
   border: none;
-
   font-size: 14px;
   line-height: 1;            /* biar ga ketarik tinggi */
 }
@@ -330,7 +324,6 @@ h1, h2, h3, p, small {
   background: #66bb6a !important;  /* warna hover baru */
   color: white !important;
 }
-
 
 .ayatStopBtn {
   width: 28px;
