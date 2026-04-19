@@ -305,13 +305,20 @@ function App() {
   };
 
   const toggleFavorite = (nomor) => {
-    let updated = favorites.includes(nomor)
-      ? favorites.filter((f) => f !== nomor)
-      : [...favorites, nomor];
 
-    setFavorites(updated);
-    localStorage.setItem("favorites", JSON.stringify(updated));
-  };
+  // 🚫 CEK BATAS MAKSIMAL
+  if (!favorites.includes(nomor) && favorites.length >= 5) {
+    alert("Maksimal 5 favorit!");
+    return;
+  }
+
+  let updated = favorites.includes(nomor)
+    ? favorites.filter((f) => f !== nomor)
+    : [...favorites, nomor];
+
+  setFavorites(updated);
+  localStorage.setItem("favorites", JSON.stringify(updated));
+};
 
   return (
     <div className="container myContainer">
