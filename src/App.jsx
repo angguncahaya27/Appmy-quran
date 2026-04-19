@@ -1,4 +1,4 @@
- import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import "./App.css";
 
@@ -218,6 +218,10 @@ function Detail({
                 ? "⏸️"
                 : "▶️"}
             </button>
+        
+          <button className="ayatStopBtn btn btn-danger btn-sm" onClick={(e) => {e.stopPropagation(); stopAudio()}}>
+            ⏹ 
+          </button>
 
             <button
               className="tafsirBtn btn btn-secondary btn-sm"
@@ -306,7 +310,7 @@ function App() {
 
   const toggleFavorite = (nomor) => {
 
-  // 🚫 CEK BATAS MAKSIMAL
+  //  CEK BATAS MAKSIMAL
   if (!favorites.includes(nomor) && favorites.length >= 5) {
     alert("Maksimal 5 favorit!");
     return;

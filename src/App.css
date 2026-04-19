@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Inter:wght@400;500;600;700&display=swap');
 
-/* 🔥 RESET */
+/*  RESET */
 * {
   box-sizing: border-box;
 }
@@ -332,21 +332,52 @@ h1, h2, h3, p, small {
 }
 
 
+.ayatStopBtn {
+  width: 28px;
+  height: 28px;
+  padding: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px !important;   /*ini bikin petak (bukan bulat) */
+  border: none !important;
+  background: #e53535 !important;
+  color: white !important;
+  font-size: 10px;
+  line-height: 1;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/*  HOVER */
+.ayatStopBtn:hover {
+  background: #c62828 !important;
+  transform: scale(1.05);
+}
+
+/* ACTIVE */
+.ayatStopBtn:active {
+  transform: scale(0.95);
+}
+
 .tafsirBtn {
-  margin-left: 10px; /* kasih jarak dari tombol audio */
+  margin-left: 10px;
   margin-top: 2px;
   background: linear-gradient(135deg, #2e7d32, #66bb6a) !important;
   color: white !important;
   border: none !important;
-  border-radius: 20px !important;
-  padding: 10px 18px;
-  font-size: 12px;
-
+  border-radius: 16px !important;
+  padding: 12px 22px;     /* lebih balance */
+  font-size: 50px;        /* dibesarin */
+  font-weight: 600;       /* biar lebih tegas */
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .tafsirBtn:hover {
   background: #2e7d32 !important;
 }
+
 /* ================= TEXT ================= */
 
 .arabText {
