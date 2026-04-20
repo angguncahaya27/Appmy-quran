@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import DetailSurah from "./pages/DetailSurah";
+import Profile from "./pages/profile/profile";
 import "./App.css";
 
 function App() {
@@ -14,18 +15,24 @@ function App() {
 
   const rekomendasiIds = [36, 18, 55, 67, 56];
 
+  // ================= FETCH DATA =================
   useEffect(() => {
     fetch("https://equran.id/api/v2/surat")
       .then((res) => res.json())
-      .then((data) => setSurah(data.data));
+      .then((data) => setSurah(data.data))
+      .catch((err) => console.error("Gagal fetch data:", err));
 
-    const saved = localStorage.getItem("favorites");
-    if (saved) setFavorites(JSON.parse(saved));
+    const savedFavorites = localStorage.getItem("favorites");
+    if (savedFavorites) {
+      setFavorites(JSON.parse(savedFavorites));
+    }
   }, []);
 
+  // ================= AUDIO CONTROL =================
   const playAudio = (url) => {
     if (!url) return;
 
+    // Jika audio sama → toggle play/pause
     if (currentAudio && currentAudio.src === url) {
       if (isPlaying) {
         currentAudio.pause();
@@ -37,6 +44,7 @@ function App() {
       return;
     }
 
+    // Stop audio lama
     if (currentAudio) {
       currentAudio.pause();
       currentAudio.currentTime = 0;
@@ -48,7 +56,9 @@ function App() {
     setCurrentAudio(audio);
     setIsPlaying(true);
 
-    audio.onended = () => setIsPlaying(false);
+    audio.onended = () => {
+      setIsPlaying(false);
+    };
   };
 
   const stopAudio = () => {
@@ -59,23 +69,33 @@ function App() {
     }
   };
 
+  // ================= FAVORITE =================
   const toggleFavorite = (nomor) => {
     if (!favorites.includes(nomor) && favorites.length >= 5) {
       alert("Maksimal 5 favorit!");
       return;
     }
 
-    let updated = favorites.includes(nomor)
-      ? favorites.filter((f) => f !== nomor)
-      : [...favorites, nomor];
+    let updatedFavorites;
 
-    setFavorites(updated);
-    localStorage.setItem("favorites", JSON.stringify(updated));
+    if (favorites.includes(nomor)) {
+      updatedFavorites = favorites.filter((f) => f !== nomor);
+    } else {
+      updatedFavorites = [...favorites, nomor];
+    }
+
+    setFavorites(updatedFavorites);
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify(updatedFavorites)
+    );
   };
 
   return (
     <div className="container myContainer">
       <Routes>
+
+        {/* ================= HOME ================= */}
         <Route
           path="/"
           element={
@@ -89,6 +109,8 @@ function App() {
             />
           }
         />
+
+        {/* ================= DETAIL SURAH ================= */}
         <Route
           path="/surah/:id"
           element={
@@ -102,6 +124,13 @@ function App() {
             />
           }
         />
+
+        {/* ================= PROFILE ================= */}
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
+
       </Routes>
     </div>
   );

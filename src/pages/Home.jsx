@@ -26,14 +26,24 @@ function Home({
     <>
       <h1 className="title text-center">🌿 Al-Qur'an Digital</h1>
 
-      <input
-        className="search form-control mx-auto"
-        placeholder="Cari surat..."
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-      />
+      {/* SEARCH + PROFILE */}
+      <div className="searchWrapper">
+        <input
+          className="search form-control"
+          placeholder="Cari surat..."
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+        />
 
-      {/* FAVORIT */}
+        <button
+          className="profileBtn btn btn-outline-success"
+          onClick={() => navigate("/profile")}
+        >
+          <i className="bi bi-person-circle"></i>
+        </button>
+      </div>
+
+      {/* ================= FAVORIT ================= */}
       {favoriteSurah.length > 0 && (
         <>
           <h2 className="sectionTitle"> Favorit</h2>
@@ -73,7 +83,7 @@ function Home({
         </>
       )}
 
-      {/* REKOMENDASI */}
+      {/* ================= REKOMENDASI ================= */}
       <h2 className="sectionTitle"> Rekomendasi</h2>
       <div className="horizontalScroll">
         {rekomendasiSurah.map((s) => (
@@ -89,7 +99,7 @@ function Home({
         ))}
       </div>
 
-      {/* LIST */}
+      {/* ================= LIST ================= */}
       <div className="list">
         {filteredSurah.map((s) => (
           <div
